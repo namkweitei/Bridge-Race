@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBlock : MonoBehaviour
 {
-    private Queue<GameObject> standingBlock = new Queue<GameObject>();
+    private Stack<GameObject> standingBlock = new Stack<GameObject>();
 
     [SerializeField]
     List<GameObject> stackBlockPrefab;
@@ -40,14 +40,14 @@ public class PlayerBlock : MonoBehaviour
             GameObject go;
             go = InstantiateBlock(player.Color);
             go.transform.rotation = playerBlock.transform.rotation;
-            standingBlock.Enqueue(go);
+            standingBlock.Push(go);
             BulletSpawner.Instance.Despawn(other.transform);
         }
-        // else if (other.CompareTag("Inedible") && standingBlock.Count > 1)
-        // {
-        //     Destroy(standingBlock.Dequeue());
-        //     other.gameObject.tag = "Untagged";
-        // }
+        else if (other.CompareTag("Step") && standingBlock.Count > 0)
+        {
+            Destroy(standingBlock.Pop());
+            BulletSpawner.Instance.Spawn(player.Color);
+        }
         // else if (other.CompareTag("Win"))
         // {
         //     int length = standingBlock.Count - 1;
