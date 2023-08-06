@@ -7,6 +7,11 @@ TagManager:
   - FxTemporaire
   - LevelEnd
   - Bridge
+  - Blue
+  - Red
+  - Yellow
+  - Violet
+  - Step
   layers:
   - Default
   - TransparentFX

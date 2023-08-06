@@ -7,13 +7,10 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private ColorSkin color;
+    public ColorSkin Color { get { return color; } }
     private float horizontal;
     private float vertical;
-    private void Start()
-    {
-    }
-
-
     private void Update()
     {
         Rotate();
@@ -30,7 +27,7 @@ public class Player : MonoBehaviour
     {
         //rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
-        Vector3 moveDestination = transform.position + movement * speed * Time.deltaTime;
+        Vector3 moveDestination = transform.position + speed * Time.deltaTime * movement;
 
         agent.SetDestination(moveDestination);
     }
@@ -43,5 +40,8 @@ public class Player : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10);
         }
+    }
+    public bool GetMove(){
+        return horizontal != 0 || vertical != 0; 
     }
 }
