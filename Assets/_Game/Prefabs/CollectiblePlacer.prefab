@@ -124,6 +124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2911125131763360378}
   - component: {fileID: 7298951779226048325}
+  - component: {fileID: 7305987786796775908}
   m_Layer: 10
   m_Name: CollectiblePlacer
   m_TagString: Untagged
@@ -169,3 +170,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8445575, y: 0.5343343, z: 0.9}
   m_Center: {x: -0.0027211905, y: -0.21716714, z: 0}
+--- !u!114 &7305987786796775908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8532287054200730867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 432a20fe8663f6f4b83f8d088636a7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 7274747522306381937}
+  materials:
+  - {fileID: 2100000, guid: bd82836a45a234f44bc802df1547274e, type: 2}
+  - {fileID: 2100000, guid: d5a37205a0f0f344c8d53fae6425e1f0, type: 2}
+  - {fileID: 2100000, guid: 6a274e1322686ce40ae3a2203f0360d6, type: 2}
+  - {fileID: 2100000, guid: e5c1924d791e56b42a75d06920380d52, type: 2}

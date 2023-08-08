@@ -12,6 +12,8 @@ TagManager:
   - Yellow
   - Violet
   - Step
+  - BridgeCollider
+  - AreaBrick
   layers:
   - Default
   - TransparentFX

@@ -13,14 +13,16 @@ public class Player : MonoBehaviour
     private float vertical;
     private void Update()
     {
-        Rotate();
+        horizontal = UltimateJoystick.GetHorizontalAxis("PlayerJoystick");
+        vertical = UltimateJoystick.GetVerticalAxis("PlayerJoystick");
     }
 
     private void FixedUpdate()
     {
-        horizontal = UltimateJoystick.GetHorizontalAxis("PlayerJoystick");
-        vertical = UltimateJoystick.GetVerticalAxis("PlayerJoystick");
+
         JoystickMovement();
+        Rotate();
+
     }
 
     protected virtual void JoystickMovement()

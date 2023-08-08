@@ -6,9 +6,9 @@ public class EdibleBlock : MonoBehaviour
 {
     private  void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")&& other.GetComponent<Player>().Color.ToString() == gameObject.tag )
         {
-            gameObject.SetActive(false);
+            BrickSpawner.Instance.Despawn(transform);
         }
     }
 }

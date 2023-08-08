@@ -6,6 +6,7 @@ public enum ColorSkin{
     Blue,
     Red,
     Yellow,
+    Violet
 }
 public abstract class Spawner : MonoBehaviour
 {

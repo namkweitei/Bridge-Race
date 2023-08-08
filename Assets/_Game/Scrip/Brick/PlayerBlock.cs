@@ -41,12 +41,10 @@ public class PlayerBlock : MonoBehaviour
             go = InstantiateBlock(player.Color);
             go.transform.rotation = playerBlock.transform.rotation;
             standingBlock.Push(go);
-            BulletSpawner.Instance.Despawn(other.transform);
         }
         else if (other.CompareTag("Step") && standingBlock.Count > 0)
         {
             Destroy(standingBlock.Pop());
-            BulletSpawner.Instance.Spawn(player.Color);
         }
         // else if (other.CompareTag("Win"))
         // {
