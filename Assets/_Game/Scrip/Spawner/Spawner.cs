@@ -6,14 +6,12 @@ public enum ColorSkin{
     Blue,
     Red,
     Yellow,
-    Violet
+    Violet,
+    None
 }
 public abstract class Spawner : MonoBehaviour
 {
-    [SerializeField] protected Transform blue;
-    [SerializeField] protected Transform red;
-    [SerializeField] protected Transform yellow;
-    [SerializeField] protected Transform violet;
+
     [SerializeField] protected List<Transform> prefabs;
     [SerializeField] protected List<Transform> poolObj;
 
@@ -30,11 +28,7 @@ public abstract class Spawner : MonoBehaviour
     }
     protected virtual void LoadHolder()
     {
-        if (this.blue != null || this.red != null || this.yellow != null || this.violet != null) return;
-        this.blue = this.transform.Find("Blue");
-        this.red = this.transform.Find("Red");
-        this.yellow = this.transform.Find("Yellow");
-        this.violet = this.transform.Find("Violet");
+       
     }
     public virtual Transform Spawn(ColorSkin block)
     {

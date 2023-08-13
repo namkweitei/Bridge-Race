@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBlock : MonoBehaviour
 {
-    private Stack<GameObject> standingBlock = new Stack<GameObject>();
+    public Stack<GameObject> standingBlock = new Stack<GameObject>();
 
     [SerializeField]
     List<GameObject> stackBlockPrefab;
@@ -13,54 +13,53 @@ public class PlayerBlock : MonoBehaviour
     Transform playerBlock;
 
     [SerializeField]
-    GameObject playerModel;
-
-    [SerializeField]
     Animator animator;
     [SerializeField]
-    Player player;
+    PlayerMove player;
     
-    private void Start()
-    {
-        Debug.Log(".");
-
-    }
-
-    private void Update()
-    {
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        string tag = player.Color.ToString();
-        if (other.CompareTag(tag) )
+        string tag = player.ColorSkin.ToString();
+        if (other.CompareTag("Brick") && other.GetComponent<EdibleBlock>().colorSkin == player.ColorSkin )
         {
-            Debug.Log("..");
             GameObject go;
-            go = InstantiateBlock(player.Color);
+            go = InstantiateBlock(player.ColorSkin);
             go.transform.rotation = playerBlock.transform.rotation;
             standingBlock.Push(go);
         }
-        else if (other.CompareTag("Step") && standingBlock.Count > 0)
+        else if (other.CompareTag("Step") && standingBlock.Count > 0 && other.transform.GetComponent<InedibleBlock>().ColorSkin != player.ColorSkin)
         {
             Destroy(standingBlock.Pop());
+            other.transform.GetComponent<InedibleBlock>().ChangeColor(player.ColorSkin);
         }
-        // else if (other.CompareTag("Win"))
-        // {
-        //     int length = standingBlock.Count - 1;
-        //     for (int i = 0; i < length; i++)
-        //     {
-        //         Destroy(standingBlock.Dequeue());
-        //     }
+        else if (other.CompareTag("Win"))
+        {
+            int length = standingBlock.Count - 1;
+            for (int i = 0; i < length; i++)
+            {
+                Destroy(standingBlock.Pop());
+            }
+            BrickSpawner.Instance.NextPlane(player.ColorSkin);
+            other.transform.GetComponent<Animation>().Play();
+            Debug.Log("...");
 
+        }
         // }else if (other.CompareTag("FinishLine"))
-        // {
-        //     animator.SetInteger("Play", 2);
-        //     Invoke(nameof(OpenWin), 3f);
-        // }
+        // // {
+        // //     animator.SetInteger("Play", 2);
+        // //     Invoke(nameof(OpenWin), 3f);
+        // // }
     }
-
+    private void CloseDoor(Collider other){
+        other.transform.GetComponent<Collider>().isTrigger = false;
+        other.gameObject.tag = "Untagged";
+    }
+    private void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Win")){
+            other.transform.GetComponent<Collider>().isTrigger = false;
+            other.gameObject.tag = "Untagged";
+        }
+    }
     private GameObject InstantiateBlock(ColorSkin color){
         foreach(GameObject obj in stackBlockPrefab){
             if(obj.name == color.ToString()){

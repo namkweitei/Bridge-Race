@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using static UnityEditor.PlayerSettings;
 
-public class Player : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent agent;
-    public Rigidbody rb;
+    [SerializeField] Rigidbody rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] ColorData colorData;
     [SerializeField] Renderer meshRenderer;
@@ -19,37 +16,34 @@ public class Player : MonoBehaviour
     private float vertical;
     public LayerMask stepLayer;
     Vector3 dir;
-    private void Start()
+
+
+    // Start is called before the first frame update
+    void Start()
     {
         ChangeColor(ColorSkin);
     }
-    private void Update()
+
+    // Update is called once per frame
+    void Update()
     {
         horizontal = UltimateJoystick.GetHorizontalAxis("PlayerJoystick");
         vertical = UltimateJoystick.GetVerticalAxis("PlayerJoystick");
-        //if (isMove && PlayerBlock.standingBlock.Count == 0 && vertical > 0)
-        //{
-        //    vertical = 0;
-        //}
         CheckBridge();
     }
-
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         JoystickMovement();
         Rotate();
     }
-
-    protected virtual void JoystickMovement()
+     protected virtual void JoystickMovement()
     {
         //rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
         Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
         Vector3 moveDestination = transform.position + speed * Time.deltaTime * movement;
         dir = moveDestination - transform.position;
         dir = dir.normalized;
-        agent.SetDestination(moveDestination);
+        rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed);
     }
-
     protected virtual void Rotate()
     {
         if (horizontal != 0 || vertical != 0 )
@@ -65,6 +59,10 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position + dir + new Vector3(0, 1f, 0f), new Vector3(0,-5f,0)  , Color.red);
         if (Physics.Raycast(transform.position + dir + new Vector3(0, 1f, 0.5f), new Vector3(0, -5f, 0), out RaycastHit hit, 10f, stepLayer))
         {
+            if(hit.transform.GetComponent<InedibleBlock>().ColorSkin == ColorSkin.None &&  vertical <= 0)
+            {
+                hit.transform.GetComponent<Collider>().isTrigger = false;
+            }
             if(hit.transform.GetComponent<InedibleBlock>().ColorSkin != ColorSkin && PlayerBlock.standingBlock.Count <= 0 && vertical > 0)
             {
                 hit.transform.GetComponent<Collider>().isTrigger = false;
@@ -78,7 +76,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ChangeColor(ColorSkin colorType)
+     public void ChangeColor(ColorSkin colorType)
     {
         ColorSkin = colorType;
         meshRenderer.material = colorData.GetMaterial(colorType);

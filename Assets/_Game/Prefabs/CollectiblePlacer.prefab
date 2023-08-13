@@ -92,7 +92,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb40dd9beb00e0f4e98fadcd08f2841b, type: 2}
+  - {fileID: 2100000, guid: 142e2dfc521192844b7f6f06d4d72c4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 2911125131763360378}
   - component: {fileID: 7298951779226048325}
   - component: {fileID: 7305987786796775908}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: CollectiblePlacer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,8 +168,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.8445575, y: 0.5343343, z: 0.9}
-  m_Center: {x: -0.0027211905, y: -0.21716714, z: 0}
+  m_Size: {x: 1.8445575, y: 1.7300916, z: 1.3305352}
+  m_Center: {x: -0.0027211905, y: 0.59545875, z: 0.21526754}
 --- !u!114 &7305987786796775908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,9 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432a20fe8663f6f4b83f8d088636a7fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorData: {fileID: 11400000, guid: ac52f024e7151004c86eceb49f80d5f6, type: 2}
   meshRenderer: {fileID: 7274747522306381937}
-  materials:
-  - {fileID: 2100000, guid: bd82836a45a234f44bc802df1547274e, type: 2}
-  - {fileID: 2100000, guid: d5a37205a0f0f344c8d53fae6425e1f0, type: 2}
-  - {fileID: 2100000, guid: 6a274e1322686ce40ae3a2203f0360d6, type: 2}
-  - {fileID: 2100000, guid: e5c1924d791e56b42a75d06920380d52, type: 2}
+  ColorSkin: 4

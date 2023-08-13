@@ -6,13 +6,13 @@ public class Character : MonoBehaviour
 {
     private IState<Character> currentState;
 
-    private void Start()
+    protected virtual void Start()
     {
         ChangeState(new IdleState());
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (currentState != null)
         {
