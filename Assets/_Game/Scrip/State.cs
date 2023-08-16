@@ -21,4 +21,15 @@ public class State : MonoBehaviour
     public void SpawnSecondBrick(ColorSkin colorSkin){
         Transform newBrick = BrickSpawner.Instance.Spawn(colorSkin);
     }
+    public void Shuffle()
+    {
+        int n = bricks.Count;
+        for (int i = 0; i < n; i++)
+        {
+            int r = i + Random.Range(0, n - i);
+            Transform temp = bricks[r];
+            bricks[r] = bricks[i];
+            bricks[i] = temp;
+        }
+    }
 }

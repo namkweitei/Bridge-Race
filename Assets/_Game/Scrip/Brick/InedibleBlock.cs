@@ -18,7 +18,7 @@ public class InedibleBlock : MonoBehaviour
     }
 
     IEnumerator IESpawn( ColorSkin colorType){
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         state.SpawnSecondBrick(colorType);
     }
 }

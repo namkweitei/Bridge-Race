@@ -8,6 +8,7 @@ public class IsBridgeState : IState<Enemy>
     public void OnEnter(Enemy t)
     {
         t.SetFinishLine();
+        t.animator.SetFloat("Speed",2);
     }
 
     public void OnExecute(Enemy t)

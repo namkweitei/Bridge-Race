@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] EnemyBrick enemyBrick;
     [SerializeField] public NavMeshAgent agent;
     [SerializeField] Transform finishTarget;
+    [SerializeField] public Animator animator;
     public ColorSkin ColorSkin;
     public State state;
     private IState<Enemy> currentState;
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour
         for(int i = 0; i< state.Bricks.Count; i++){
             if(state.Bricks[i].gameObject.name == ColorSkin.ToString() && state.Bricks[i].gameObject.activeSelf){
                 target = state.Bricks[i];
+                state.Shuffle();
             }
         } 
         return target;

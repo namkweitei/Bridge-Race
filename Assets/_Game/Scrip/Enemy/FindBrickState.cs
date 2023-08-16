@@ -11,6 +11,7 @@ public class FindBrickState : IState<Enemy>
         currentBricks = Random.Range(0, 10);
         target = t.SeekBrick();
         t.SetTarget(target);
+        t.animator.SetFloat("Speed",2);
     }
 
     public void OnExecute(Enemy t)

@@ -13,8 +13,6 @@ public class EnemyBrick : MonoBehaviour
     Transform ennemyBlock;
 
     [SerializeField]
-    Animator animator;
-    [SerializeField]
     Enemy enemy;
     
     private void OnTriggerEnter(Collider other)

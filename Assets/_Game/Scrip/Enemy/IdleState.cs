@@ -9,6 +9,7 @@ public class IdleState : IState<Enemy>
     public void OnEnter(Enemy t)
     {
         timer = 1;
+        t.animator.SetFloat("Speed",0);
     }
 
     public void OnExecute(Enemy t)
