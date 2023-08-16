@@ -10,7 +10,7 @@ public class EnemyBrick : MonoBehaviour
     List<GameObject> stackBlockPrefab;
 
     [SerializeField]
-    Transform playerBlock;
+    Transform ennemyBlock;
 
     [SerializeField]
     Animator animator;
@@ -24,7 +24,7 @@ public class EnemyBrick : MonoBehaviour
         {
             GameObject go;
             go = InstantiateBlock(enemy.ColorSkin);
-            go.transform.rotation = playerBlock.transform.rotation;
+            go.transform.rotation = enemy.transform.rotation;
             standingBlock.Push(go);
         }
         else if (other.CompareTag("Step") && standingBlock.Count > 0 && other.transform.GetComponent<InedibleBlock>().ColorSkin != enemy.ColorSkin)
@@ -41,8 +41,6 @@ public class EnemyBrick : MonoBehaviour
                 Destroy(standingBlock.Pop());
             }
             other.transform.GetComponent<Animation>().Play();
-            Debug.Log("...");
-
         }
         
     }
@@ -55,7 +53,7 @@ public class EnemyBrick : MonoBehaviour
     private GameObject InstantiateBlock(ColorSkin color){
         foreach(GameObject obj in stackBlockPrefab){
             if(obj.name == color.ToString()){
-                GameObject go = Instantiate(obj, StackPos(), Quaternion.identity, playerBlock );
+                GameObject go = Instantiate(obj, StackPos(), Quaternion.identity, ennemyBlock );
                 return go;
             }
         }
@@ -66,10 +64,10 @@ public class EnemyBrick : MonoBehaviour
     {
         Vector3 v3;
         if(standingBlock.Count == 0){
-            v3 = playerBlock.transform.position + new Vector3(0, 0, 0);
+            v3 = ennemyBlock.transform.position + new Vector3(0, 0, 0);
             
         }else{
-            v3 = playerBlock.transform.position + new Vector3(0, standingBlock.Count * 0.325f, 0);
+            v3 = ennemyBlock.transform.position + new Vector3(0, standingBlock.Count * 0.325f, 0);
         }
         
         return v3;

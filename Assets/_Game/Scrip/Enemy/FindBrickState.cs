@@ -2,24 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FindBrickState : IState<Character>
+public class FindBrickState : IState<Enemy>
 {   
-    Enemy enemy;
     int currentBricks;
     Transform target;
-    public void OnEnter(Character t)
+    public void OnEnter(Enemy t)
     {
         currentBricks = Random.Range(0, 10);
-        target = enemy.SeekBrick();
-        enemy.SetTarget(target);
+        target = t.SeekBrick();
+        t.SetTarget(target);
     }
 
-    public void OnExecute(Character t)
+    public void OnExecute(Enemy t)
     {
-        
+        if(t.agent.remainingDistance <= t.agent.stoppingDistance){
+            if(t.CheckBridge() >= currentBricks){
+                t.ChangeState(new IsBridgeState());
+            }else{
+                target = t.SeekBrick();
+                t.SetTarget(target);
+            //    t.ChangeState(new FindBrickState());
+            }
+        }
     }
 
-    public void OnExit(Character t)
+    public void OnExit(Enemy t)
     {
 
     }

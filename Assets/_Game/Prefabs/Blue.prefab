@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4368907892297678925}
   m_Layer: 10
   m_Name: Blue
-  m_TagString: Blue
+  m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2a4a5797e14124aa1b966a3e02a61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorSkin: 0
 --- !u!1 &6785342924534677801
 GameObject:
   m_ObjectHideFlags: 0

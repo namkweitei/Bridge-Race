@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: -2683105871475583452}
   m_Layer: 10
   m_Name: Yellow
-  m_TagString: Yellow
+  m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,7 @@ Transform:
   - {fileID: 4276751627730152964}
   - {fileID: 2627876502734707318}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-2683105871475583452
 MonoBehaviour:
@@ -160,3 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2a4a5797e14124aa1b966a3e02a61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorSkin: 0

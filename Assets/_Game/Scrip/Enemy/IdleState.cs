@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : IState<Character>
+public class IdleState : IState<Enemy>
 {
     Enemy enemy;
     float timer;
-    public void OnEnter(Character t)
+    public void OnEnter(Enemy t)
     {
         timer = 1;
     }
 
-    public void OnExecute(Character t)
+    public void OnExecute(Enemy t)
     {
         timer -= Time.deltaTime;
         if (timer < 0){
-            enemy.ChangeState(new FindBrickState());
+            t.ChangeState(new FindBrickState());
         }
     }
 
-    public void OnExit(Character t)
+    public void OnExit(Enemy t)
     {
 
     }

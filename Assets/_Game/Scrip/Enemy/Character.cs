@@ -4,35 +4,35 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    private IState<Character> currentState;
+    // private IState<Character> currentState;
 
-    protected virtual void Start()
-    {
-        ChangeState(new IdleState());
-    }
+    // protected virtual void Start()
+    // {
+    //     ChangeState(new IdleState());
+    // }
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        if (currentState != null)
-        {
-            currentState.OnExecute(this);
-        }
-    }
+    // // Update is called once per frame
+    // protected virtual void Update()
+    // {
+    //     if (currentState != null)
+    //     {
+    //         currentState.OnExecute(this);
+    //     }
+    // }
 
-    public void ChangeState(IState<Character> state)
-    {
-        if (currentState != null)
-        {
-            currentState.OnExit(this);
-        }
+    // public void ChangeState(IState<Character> state)
+    // {
+    //     if (currentState != null)
+    //     {
+    //         currentState.OnExit(this);
+    //     }
 
-        currentState = state;
+    //     currentState = state;
 
-        if (currentState != null)
-        {
-            currentState.OnEnter(this);
-        }
-    }
+    //     if (currentState != null)
+    //     {
+    //         currentState.OnEnter(this);
+    //     }
+    // }
 
 }

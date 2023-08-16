@@ -14,5 +14,11 @@ public class InedibleBlock : MonoBehaviour
         ColorSkin = colorType;
         meshRenderer.material = colorData.GetMaterial(colorType);
         state.SpawnSecondBrick(colorType);
+        // StartCoroutine(IESpawn(colorType));
+    }
+
+    IEnumerator IESpawn( ColorSkin colorType){
+        yield return new WaitForSeconds(5f);
+        state.SpawnSecondBrick(colorType);
     }
 }

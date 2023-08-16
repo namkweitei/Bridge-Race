@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IsBridgeState : IState<Character>
+public class IsBridgeState : IState<Enemy>
 {
-    public void OnEnter(Character t)
-    {
 
+    public void OnEnter(Enemy t)
+    {
+        t.SetFinishLine();
     }
 
-    public void OnExecute(Character t)
+    public void OnExecute(Enemy t)
     {
-
+        
+        if(t.CheckBridge() <= 0 ){
+            t.ChangeState(new FindBrickState());
+        }
     }
+    
 
-    public void OnExit(Character t)
+    public void OnExit(Enemy t)
     {
 
     }

@@ -19,7 +19,6 @@ public class State : MonoBehaviour
         }
     }
     public void SpawnSecondBrick(ColorSkin colorSkin){
-        BrickSpawner.Instance.Spawn(colorSkin);
-        
+        Transform newBrick = BrickSpawner.Instance.Spawn(colorSkin);
     }
 }
