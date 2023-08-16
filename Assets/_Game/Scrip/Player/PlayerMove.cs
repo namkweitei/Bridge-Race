@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Renderer meshRenderer;
     [SerializeField] PlayerBlock PlayerBlock;
     public ColorSkin ColorSkin;
-
+    public State state;
     public bool isMove;
     private float horizontal;
     private float vertical;
@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         ChangeColor(ColorSkin);
+        
     }
 
     // Update is called once per frame
@@ -83,5 +84,11 @@ public class PlayerMove : MonoBehaviour
     }
     public bool GetMove(){
         return horizontal != 0 || vertical != 0; 
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("State")){
+            this.state = other.transform.GetComponent<State>();
+            state.SpawnFirstBrick(ColorSkin);
+        }
     }
 }

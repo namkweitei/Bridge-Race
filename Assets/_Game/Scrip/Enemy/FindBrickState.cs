@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : IState<Character>
-{
+public class FindBrickState : IState<Character>
+{   
     Enemy enemy;
-    float timer;
+    int currentBricks;
+    Transform target;
     public void OnEnter(Character t)
     {
-        timer = 1;
+        currentBricks = Random.Range(0, 10);
+        target = enemy.SeekBrick();
+        enemy.SetTarget(target);
     }
 
     public void OnExecute(Character t)
     {
-        timer -= Time.deltaTime;
-        if (timer < 0){
-            enemy.ChangeState(new FindBrickState());
-        }
+        
     }
 
     public void OnExit(Character t)

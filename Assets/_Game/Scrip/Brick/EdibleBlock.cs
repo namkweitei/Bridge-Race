@@ -5,6 +5,7 @@ using UnityEngine;
 public class EdibleBlock : MonoBehaviour
 {
     public ColorSkin colorSkin;
+    
     private  void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && other.GetComponent<PlayerMove>().ColorSkin == colorSkin )

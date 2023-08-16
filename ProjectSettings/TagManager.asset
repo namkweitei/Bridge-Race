@@ -10,6 +10,7 @@ TagManager:
   - Step
   - Win
   - Brick
+  - State
   layers:
   - Default
   - TransparentFX

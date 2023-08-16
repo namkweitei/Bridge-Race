@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBlock : MonoBehaviour
+public class EnemyBrick : MonoBehaviour
 {
-    public Stack<GameObject> standingBlock = new Stack<GameObject>();
+   public Stack<GameObject> standingBlock = new Stack<GameObject>();
 
     [SerializeField]
     List<GameObject> stackBlockPrefab;
@@ -15,23 +15,23 @@ public class PlayerBlock : MonoBehaviour
     [SerializeField]
     Animator animator;
     [SerializeField]
-    PlayerMove player;
+    Enemy enemy;
     
     private void OnTriggerEnter(Collider other)
     {
-        string tag = player.ColorSkin.ToString();
-        if (other.CompareTag("Brick") && other.GetComponent<EdibleBlock>().colorSkin == player.ColorSkin )
+        string tag = enemy.ColorSkin.ToString();
+        if (other.CompareTag("Brick") && other.GetComponent<EdibleBlock>().colorSkin == enemy.ColorSkin )
         {
             GameObject go;
-            go = InstantiateBlock(player.ColorSkin);
+            go = InstantiateBlock(enemy.ColorSkin);
             go.transform.rotation = playerBlock.transform.rotation;
             standingBlock.Push(go);
         }
-        else if (other.CompareTag("Step") && standingBlock.Count > 0 && other.transform.GetComponent<InedibleBlock>().ColorSkin != player.ColorSkin)
+        else if (other.CompareTag("Step") && standingBlock.Count > 0 && other.transform.GetComponent<InedibleBlock>().ColorSkin != enemy.ColorSkin)
         {
             Destroy(standingBlock.Pop());
-            other.transform.GetComponent<InedibleBlock>().state = player.state;
-            other.transform.GetComponent<InedibleBlock>().ChangeColor(player.ColorSkin);  
+            other.transform.GetComponent<InedibleBlock>().state = enemy.state;
+            other.transform.GetComponent<InedibleBlock>().ChangeColor(enemy.ColorSkin);  
         }
         else if (other.CompareTag("Win"))
         {
