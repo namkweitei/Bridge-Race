@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     [System.Obsolete]
     void Start()
     {
-         target = FindObjectOfType<Player>().transform;
+        
     }
 
     // Update is called once per frame
