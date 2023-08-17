@@ -9,7 +9,7 @@ public enum ColorSkin{
     Violet,
     None
 }
-public abstract class Spawner : MonoBehaviour
+public abstract class Spawner : Singleton<Spawner>
 {
 
    [SerializeField] protected Transform holder;
