@@ -8,9 +8,14 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private float moveSpeed;
     // Start is called before the first frame update
+    private void Awake() {
+       
+    }
+
+    [System.Obsolete]
     void Start()
     {
-        
+         target = FindObjectOfType<Player>().transform;
     }
 
     // Update is called once per frame

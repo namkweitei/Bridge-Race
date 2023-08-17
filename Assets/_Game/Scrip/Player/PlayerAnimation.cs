@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    [SerializeField] private PlayerMove player;
+    [SerializeField] private Player player;
     // Start is called before the first frame update
 
     // Update is called once per frame

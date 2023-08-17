@@ -8,7 +8,7 @@ public class EdibleBlock : MonoBehaviour
     
     private  void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.GetComponent<PlayerMove>().ColorSkin == colorSkin )
+        if (other.CompareTag("Player") && other.GetComponent<Player>().ColorSkin == colorSkin )
         {
             BrickSpawner.Instance.Despawn(transform);
         }else if (other.CompareTag("Enemy") && other.GetComponent<Enemy>().ColorSkin == colorSkin )

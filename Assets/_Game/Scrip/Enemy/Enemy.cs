@@ -26,7 +26,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        Debug.Log(currentState);
         if (currentState != null)
         {
             currentState.OnExecute(this);
@@ -77,7 +76,6 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("State")){
-            Debug.Log("");
             if(other.transform.GetComponent<State>() != this.state){
                 this.state = other.transform.GetComponent<State>();
                 this.state.SpawnFirstBrick(ColorSkin);

@@ -15,7 +15,7 @@ public class PlayerBlock : MonoBehaviour
     [SerializeField]
     Animator animator;
     [SerializeField]
-    PlayerMove player;
+    Player player;
     
     private void OnTriggerEnter(Collider other)
     {
