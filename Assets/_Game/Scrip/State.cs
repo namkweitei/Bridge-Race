@@ -8,13 +8,14 @@ public class State : MonoBehaviour
     [SerializeField] List<Transform> pointSpawn;
     public List<Transform> PointSpawn { get { return pointSpawn; } }
     
-    [SerializeField] List<Transform> bricks;
-    public List<Transform> Bricks { get { return bricks; } set { bricks = value; } }
-
+    [SerializeField] List<EdibleBlock> bricks;
+    public List<EdibleBlock> Bricks { get { return bricks; } set { bricks = value; } }
+    [SerializeField] Transform door;
+    public Transform Door { get { return door;} set { door = value; } }
     public void SpawnFirstBrick(ColorSkin colorSkin){
         foreach(Transform point in pointSpawn[(int)(colorSkin)]){
-            Transform newBrick = BrickSpawner.Ins.Spawn(colorSkin);
-            newBrick.SetPositionAndRotation(point.position, point.rotation);
+            EdibleBlock newBrick = BrickSpawner.Ins.Spawn(colorSkin).GetComponent<EdibleBlock>();
+            newBrick.transform.SetPositionAndRotation(point.position, point.rotation);
             bricks.Add(newBrick);
         }
     }

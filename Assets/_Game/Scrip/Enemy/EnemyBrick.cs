@@ -18,20 +18,20 @@ public class EnemyBrick : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         string tag = enemy.ColorSkin.ToString();
-        if (other.CompareTag("Brick") && other.GetComponent<EdibleBlock>().colorSkin == enemy.ColorSkin )
+        if (other.CompareTag(Constants.TAG_BRICK) && Cache.GetEdibleBlock(other).colorSkin == enemy.ColorSkin )
         {
             GameObject go;
             go = InstantiateBlock(enemy.ColorSkin);
             go.transform.rotation = enemy.transform.rotation;
             standingBlock.Push(go);
         }
-        else if (other.CompareTag("Step") && standingBlock.Count > 0 && other.transform.GetComponent<InedibleBlock>().ColorSkin != enemy.ColorSkin)
+        else if (other.CompareTag(Constants.TAG_Step) && standingBlock.Count > 0 && Cache.GetInedibleBlock(other).ColorSkin != enemy.ColorSkin)
         {
             Destroy(standingBlock.Pop());
-            other.transform.GetComponent<InedibleBlock>().state = enemy.state;
-            other.transform.GetComponent<InedibleBlock>().ChangeColor(enemy.ColorSkin);  
+            Cache.GetInedibleBlock(other).state = enemy.state;
+            Cache.GetInedibleBlock(other).ChangeColor(enemy.ColorSkin);  
         }
-        else if (other.CompareTag("Win"))
+        else if (other.CompareTag(Constants.TAG_Win))
         {
             int length = standingBlock.Count - 1;
             for (int i = 0; i < length; i++)
@@ -39,13 +39,16 @@ public class EnemyBrick : MonoBehaviour
                 Destroy(standingBlock.Pop());
             }
             other.transform.GetComponent<Animation>().Play();
+        }else if (other.CompareTag(Constants.TAG_FinishPoint)){
+            GameManager.Ins.IsPause = true;
+            UIManager.Ins.OpenUI<Lose>();
         }
         
     }
     private void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Win")){
+        if (other.CompareTag(Constants.TAG_Win)){
             other.transform.GetComponent<Collider>().isTrigger = false;
-            other.gameObject.tag = "Untagged";
+            other.gameObject.tag = Constants.TAG_BRICK;
         }
     }
     private GameObject InstantiateBlock(ColorSkin color){

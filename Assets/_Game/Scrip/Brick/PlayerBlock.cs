@@ -20,20 +20,21 @@ public class PlayerBlock : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         string tag = player.ColorSkin.ToString();
-        if (other.CompareTag("Brick") && other.GetComponent<EdibleBlock>().colorSkin == player.ColorSkin )
+        if (other.CompareTag(Constants.TAG_BRICK) && Cache.GetEdibleBlock(other).colorSkin == player.ColorSkin )
         {
             GameObject go;
             go = InstantiateBlock(player.ColorSkin);
             go.transform.rotation = playerBlock.transform.rotation;
             standingBlock.Push(go);
         }
-        else if (other.CompareTag("Step") && standingBlock.Count > 0 && other.transform.GetComponent<InedibleBlock>().ColorSkin != player.ColorSkin)
+        else if (other.CompareTag(Constants.TAG_Step) && standingBlock.Count > 0 && Cache.GetInedibleBlock(other).ColorSkin != player.ColorSkin)
         {
+
             Destroy(standingBlock.Pop());
-            other.transform.GetComponent<InedibleBlock>().state = player.state;
-            other.transform.GetComponent<InedibleBlock>().ChangeColor(player.ColorSkin);  
+            Cache.GetInedibleBlock(other).state = player.state;
+            Cache.GetInedibleBlock(other).ChangeColor(player.ColorSkin);  
         }
-        else if (other.CompareTag("Win"))
+        else if (other.CompareTag(Constants.TAG_Win))
         {
             int length = standingBlock.Count - 1;
             for (int i = 0; i < length; i++)
@@ -41,15 +42,19 @@ public class PlayerBlock : MonoBehaviour
                 Destroy(standingBlock.Pop());
             }
             other.transform.GetComponent<Animation>().Play();
-            Debug.Log("...");
 
         }
         
     }
-    private void OnTriggerExit(Collider other) {
-        if (other.CompareTag("Win")){
-            other.transform.GetComponent<Collider>().isTrigger = false;
-            other.gameObject.tag = "Untagged";
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.CompareTag(Constants.TAG_FinishPoint)){
+            int length = standingBlock.Count - 1;
+            for (int i = 0; i < length; i++)
+            {
+                Destroy(standingBlock.Pop());
+            }
+            GameManager.Ins.IsPause = true;
+            UIManager.Ins.OpenUI<Win>();
         }
     }
     private GameObject InstantiateBlock(ColorSkin color){

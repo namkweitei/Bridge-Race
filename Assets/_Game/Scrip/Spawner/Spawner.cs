@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix;
+using Sirenix.OdinInspector;
+
 public enum ColorSkin{
     Blue,
     Red,
@@ -12,9 +15,10 @@ public enum ColorSkin{
 public abstract class Spawner : Singleton<Spawner>
 {
 
-   [SerializeField] protected Transform holder;
+    [SerializeField] protected Transform holder;
     [SerializeField] protected List<Transform> prefabs;
     [SerializeField] protected List<Transform> poolObj;
+    [SerializeField] protected List<Transform> poolHolder;
 
     // Start is called before the first frame update
     protected virtual void Reset()
@@ -78,11 +82,21 @@ public abstract class Spawner : Singleton<Spawner>
                 return obj;
             }
         }
+        
         Transform newPrefab = Instantiate(prefab);
         newPrefab.name = prefab.name;
+        this.poolHolder.Add(newPrefab);
         return newPrefab;
     }
-
+    [Button]
+    public virtual void DespawnAll(){
+        for(int i = 0; i < this.poolHolder.Count; i++ ){
+            if(poolHolder[i].gameObject.activeSelf == true){
+                Despawn(poolHolder[i]);
+            }
+        }
+        
+    }
     public virtual void Despawn(Transform obj)
     {
         this.poolObj.Add(obj);

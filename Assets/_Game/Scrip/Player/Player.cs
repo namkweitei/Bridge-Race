@@ -1,3 +1,5 @@
+
+using Microsoft.VisualBasic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +30,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.Ins.IsPause) {
+            return;
+        }
         horizontal = UltimateJoystick.GetHorizontalAxis("PlayerJoystick");
         vertical = UltimateJoystick.GetVerticalAxis("PlayerJoystick");
         CheckBridge();
@@ -60,18 +65,20 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position + dir + new Vector3(0, 1f, 0f), new Vector3(0,-5f,0)  , Color.red);
         if (Physics.Raycast(transform.position + dir + new Vector3(0, 1f, 0.5f), new Vector3(0, -5f, 0), out RaycastHit hit, 10f, stepLayer))
         {
-            if(hit.transform.GetComponent<InedibleBlock>().ColorSkin == ColorSkin.None &&  vertical <= 0)
+            
+            if(Cache.GetRaycastInedibleBlock(hit).ColorSkin == ColorSkin.None &&  vertical <= 0)
             {
-                hit.transform.GetComponent<Collider>().isTrigger = false;
+                Cache.GetRaycastCollider(hit).isTrigger = false;
             }
-            if(hit.transform.GetComponent<InedibleBlock>().ColorSkin != ColorSkin && PlayerBlock.standingBlock.Count <= 0 && vertical > 0)
+            if(Cache.GetRaycastInedibleBlock(hit).ColorSkin != ColorSkin && PlayerBlock.standingBlock.Count <= 0 && vertical > 0)
             {
-                hit.transform.GetComponent<Collider>().isTrigger = false;
-            }else if(vertical <= 0){
-                hit.transform.GetComponent<Collider>().isTrigger = true;
+                Cache.GetRaycastCollider(hit).isTrigger = false;
             }
-            else if(hit.transform.GetComponent<InedibleBlock>().ColorSkin != ColorSkin && PlayerBlock.standingBlock.Count >= 0  && vertical >= 0){
-                hit.transform.GetComponent<Collider>().isTrigger = true;
+            else if(vertical <= 0){
+                Cache.GetRaycastCollider(hit).isTrigger = true;
+            }
+            else if(Cache.GetRaycastInedibleBlock(hit).ColorSkin != ColorSkin && PlayerBlock.standingBlock.Count >= 0  && vertical >= 0){
+                Cache.GetRaycastCollider(hit).isTrigger = true;
             }
             
         }
@@ -86,9 +93,11 @@ public class Player : MonoBehaviour
         return horizontal != 0 || vertical != 0; 
     }
     private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("State")){
+        if(other.CompareTag(Constants.TAG_State) && other.transform.GetComponent<State>() != this.state){
             this.state = other.transform.GetComponent<State>();
             state.SpawnFirstBrick(ColorSkin);
+            state.Door.gameObject.SetActive(true);
         }
     }
+    
 }

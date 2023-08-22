@@ -9,7 +9,7 @@ public class FindBrickState : IState<Enemy>
     public void OnEnter(Enemy t)
     {
         currentBricks = Random.Range(0, 10);
-        target = t.SeekBrick();
+        target = t.SeekBrick().transform;
         t.SetTarget(target);
         t.animator.SetFloat("Speed",2);
     }
@@ -20,7 +20,7 @@ public class FindBrickState : IState<Enemy>
             if(t.CheckBridge() >= currentBricks){
                 t.ChangeState(new IsBridgeState());
             }else{
-                target = t.SeekBrick();
+                target = t.SeekBrick().transform;
                 t.SetTarget(target);
             //    t.ChangeState(new FindBrickState());
             }

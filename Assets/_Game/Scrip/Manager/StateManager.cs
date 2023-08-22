@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateManager : MonoBehaviour
+public class StateManager : Singleton<StateManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] private List<State> states;
+    [SerializeField] private Transform finishPoint;
+    public Transform GetFinishPoint(){
+        return finishPoint;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
